@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "live-server"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.0-alpha3",
+    "jquery": "^3.6.4"
+  },
+  "devDependencies": {
+    "cypress": "^12.10.0"
+  }
 }
