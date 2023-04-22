@@ -1,0 +1,24 @@
+.form-enter{
+    max-width: 500px;
+}
+
+.button-enter{
+    margin-top: 30px;
+}
+
+.container-rates{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (min-width: 600px) {
+    .container-rates{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .container-rates{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+    }
+  }

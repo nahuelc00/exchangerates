@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exchange</title>
-    <link rel="stylesheet" href="./src/index.css">
-    <script src="./src/index.js" defer></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exchange</title>
+  <!-- bootStrap -->
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <!-- bootStrap -->
+  <!-- jQuery -->
+  <script src="./node_modules/jquery/dist/jquery.min.js" defer></script>
+  <!-- jQuery -->
+
+  <link rel="stylesheet" href="./src/index.css">
+  <script src="./src/index.js" defer></script>
 </head>
+
 <body>
+
+  <div id="root" class="pt-5">
+
+    <form class="form-enter row ms-auto me-auto mb-5">
+      <div class="col">
+        <label class="form-label">Símbolo</label>
+        <input type="text" class="form-control border border-secondary symbol-rate">
+      </div>
+      <div class="col">
+        <label class="form-label">Fecha</label>
+        <input type="date" class="form-control border border-secondary date-rate">
+      </div>
+      <div class="col">
+        <button type="submit" class="btn button-enter btn-primary w-100">Ingresar</button>
+      </div>
+    </form>
     
+    <main>
+      <div class="container-rates">
+      </div>
+    </main>
+
+  </div>
 </body>
+
 </html>
