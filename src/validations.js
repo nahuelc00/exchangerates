@@ -24,7 +24,7 @@ function getActualDate() {
   };
 }
 
-function validateDateRate(dateValue) {
+function validateRateDate(dateValue) {
   const errors = {
     error: "",
   };
