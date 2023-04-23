@@ -61,8 +61,8 @@ function validateSymbol(symbolValue) {
     errors.error = "El símbolo no puede estar vacío";
     return errors;
   }
-  if (symbolValue.length > 3) {
-    errors.error = "El símbolo no puede tener más de tres caracteres";
+  if (symbolValue.length > 3 || symbolValue.length < 3) {
+    errors.error = "El símbolo debe tener tres caracteres";
     return errors;
   }
   if (hasOnlyLetters && !hasNumbers) {
