@@ -147,13 +147,6 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
                );
              }
            });
-
-         } else {
-
-           $(".error").text() !== "" ? $(".error").remove() : "" 
-
-           $(".container-errors").addClass("mt-4");
-           $(".container-errors").append(`<p class="error text-center m-0 text-danger">No se encontró el símbolo</p>`);
          }
        });
     }     
