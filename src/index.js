@@ -1,5 +1,15 @@
+function renderSymbolsInSelect() {
+  const $symbols = $(".base-symbols");
+  fetchSymbols().then((data)=>{
+    const symbols = data.symbols;
+    symbols.forEach((symbol)=>{
+      $symbols.append(`<option value="${symbol}">${symbol}</option>`)
+    })
+  })
+}
+
 function getBaseSymbol() {
-  const baseSymbol = $(".base-symbol").val();
+  const baseSymbol = $(".base-symbols").val();
   return baseSymbol;
 }
 
@@ -34,16 +44,16 @@ function fetchRates(symbol, date) {
 function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
 
   if (validationOfSymbol.error) {
-    $(".base-symbol").addClass("is-invalid").removeClass("border").removeClass("border-secondary");
+    $(".base-symbols").addClass("is-invalid").removeClass("border").removeClass("border-secondary");
 
-    $(".base-symbol").hasClass("is-valid") ? $(".base-symbol")
+    $(".base-symbols").hasClass("is-valid") ? $(".base-symbols")
     .removeClass("is-valid") : "";
 
     $(".symbol-error").text(validationOfSymbol.error);
   } else {
-    $(".base-symbol").addClass("is-valid").removeClass("border").removeClass("border-secondary");;
+    $(".base-symbols").addClass("is-valid").removeClass("border").removeClass("border-secondary");;
 
-    $(".base-symbol").hasClass("is-invalid") ? $(".base-symbol")
+    $(".base-symbols").hasClass("is-invalid") ? $(".base-symbols")
     .removeClass("is-invalid") : "";
 
     $(".symbol-error").text() !== "" ? $(".symbol-error").text("") : "";
@@ -67,15 +77,18 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
 }
 
 (function main() {
+
   const $form = $(".form-enter");
+   renderSymbolsInSelect();
 
   $form.on("submit", (event) => {
     event.preventDefault();
-    const baseSymbol = getBaseSymbol().toUpperCase();
+
+    const baseSymbol = getBaseSymbol();
     const dateOfRate = getRateDate();
 
-    const validationOfSymbol = validateSymbol(baseSymbol);
     const validationOfDate = validateRateDate(dateOfRate);
+    const validationOfSymbol = validateSymbol(baseSymbol);
 
     renderAndRemoveErrors(validationOfDate,validationOfSymbol);
 

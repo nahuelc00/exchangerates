@@ -51,24 +51,14 @@ function validateRateDate(dateValue) {
 }
 
 function validateSymbol(symbolValue) {
-  const hasNumbers = /([0-9])/.test(symbolValue);
-  const hasOnlyLetters = /^[a-zA-Z0-9]+$/.test(symbolValue);
   const errors = {
     error: "",
   };
 
-  if (symbolValue === "") {
-    errors.error = "El símbolo no puede estar vacío";
+  if (symbolValue === "Seleccione la base") {
+    errors.error = "Debe seleccionar un símbolo";
     return errors;
   }
-  if (symbolValue.length > 3 || symbolValue.length < 3) {
-    errors.error = "El símbolo debe tener tres caracteres";
-    return errors;
-  }
-  if (hasOnlyLetters && !hasNumbers) {
-    return errors;
-  } else {
-    errors.error = "El símbolo no puede tener caracteres especiales ni números";
-    return errors;
-  }
+
+  return errors;
 }
