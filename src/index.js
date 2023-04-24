@@ -26,9 +26,44 @@ function fetchRates(symbol, date) {
       if (data.base === symbol) {
         return { rates: data.rates };
       } else {
-        return "La base ingresada no se encuentra disponible"
+        return "La fecha ingresada no es válida";
       }
    })
+}
+
+function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
+
+  if (validationOfSymbol.error) {
+    $(".base-symbol").addClass("is-invalid").removeClass("border").removeClass("border-secondary");
+
+    $(".base-symbol").hasClass("is-valid") ? $(".base-symbol")
+    .removeClass("is-valid") : "";
+
+    $(".symbol-error").text(validationOfSymbol.error);
+  } else {
+    $(".base-symbol").addClass("is-valid").removeClass("border").removeClass("border-secondary");;
+
+    $(".base-symbol").hasClass("is-invalid") ? $(".base-symbol")
+    .removeClass("is-invalid") : "";
+
+    $(".symbol-error").text() !== "" ? $(".symbol-error").text("") : "";
+  }
+
+  if (validationOfDate.error) {
+    $(".rate-date").addClass("is-invalid").removeClass("border").removeClass("border-secondary");
+
+    $(".rate-date").hasClass("is-valid") ? $(".rate-date")
+    .removeClass("is-valid") : "";
+
+    $(".date-error").text(validationOfDate.error);
+  } else {
+    $(".rate-date").addClass("is-valid").removeClass("border").removeClass("border-secondary");
+
+    $(".rate-date").hasClass("is-invalid") ? $(".rate-date")
+    .removeClass("is-invalid") : "";
+
+    $(".date-error").text() !== "" ? $(".date-error").text("") : "";
+  }
 }
 
 (function main() {
@@ -42,40 +77,72 @@ function fetchRates(symbol, date) {
     const validationOfSymbol = validateSymbol(baseSymbol);
     const validationOfDate = validateRateDate(dateOfRate);
 
+    renderAndRemoveErrors(validationOfDate,validationOfSymbol);
+
     if (validationOfSymbol.error === "" && validationOfDate.error === "") {
 
        fetchSymbols().then((data) => {
-          const symbols = data.symbols;
-          const searchedSymbol = symbols.find((symbol) => symbol === baseSymbol);
+         const symbols = data.symbols;
+         const searchedSymbol = symbols.find((symbol) => symbol === baseSymbol);
 
-          if (searchedSymbol !== undefined) {
-            return { searchedSymbol };
-          } else {
-            console.log("No encontró el símbolo");
-          }
+         if (searchedSymbol !== undefined) {
 
-        }).then((data) => {
-          const symbol = data.searchedSymbol;
-          
-          fetchRates(symbol,dateOfRate).then((data)=>{
-            if (data.rates) {
+           if ($(".error").text() !== "") {
+             $(".error").remove();
+             $(".container-errors").removeClass("mt-4");
+           }
+
+           fetchRates(searchedSymbol, dateOfRate).then((data) => {
+             if (data.rates) {
               const rates = data.rates;
-              const keys = Object.keys(rates);
+              const symbols = Object.keys(rates);
+              const quantityOfRows = $(".row-rates").length;
 
-              keys.forEach((key)=>{
-                const value = rates[key];
-                const rate = key + " " + value;
-                console.log(rate);
-              })
-            } else {
-              console.log(data);
-            }
-          });
-        });
-    } else {
-      console.log(validationOfSymbol.error);
-      console.log(validationOfDate.error);
-    }
-    
+              $(".container-rates").removeClass("invisible").addClass("visible");
+
+              if ($(".symbol").length !== 0) {
+                $(".symbol").each((index, $symbol) => {
+                  $symbol.remove();
+                });
+              }
+
+              if ($(".rate").length !== 0) {
+                $(".rate").each((index, $rate) => {
+                  $rate.remove();
+                });
+              }
+
+               symbols.forEach((symbol, index) => {
+                 const rate = rates[symbol];
+                 if (index < Math.floor(symbols.length / quantityOfRows) + 1) {
+                   $(".row-rates").eq(0).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
+                   $(".row-rates").eq(0).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                 } else if (index <(Math.floor(symbols.length / quantityOfRows) + 1) * 2) {
+                   $(".row-rates").eq(1).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
+                   $(".row-rates").eq(1).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                 } else if (index <(Math.floor(symbols.length / quantityOfRows) + 1) * 3) {
+                   $(".row-rates").eq(2).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
+                   $(".row-rates").eq(2).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                 }
+               });
+             } else {
+               $(".error").text() !== "" ? $(".error").remove() : "";
+
+               $(".container-errors").addClass("mt-4");
+               $(".container-errors").append(
+                 `<p class="error text-center m-0 text-danger">${data}</p>`
+               );
+             }
+           });
+
+         } else {
+
+           $(".error").text() !== "" ? $(".error").remove() : "" 
+
+           $(".container-errors").addClass("mt-4");
+           $(".container-errors").append(`<p class="error text-center m-0 text-danger">No se encontró el símbolo</p>`);
+         }
+       });
+    }     
   });
 })();
