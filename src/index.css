@@ -14,7 +14,7 @@
         max-width: initial;
         display: flex;
         justify-content: center;
-        gap: 100px;
+        gap: 70px;
     }
   }
   @media (min-width: 1024px) {
