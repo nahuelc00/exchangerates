@@ -107,9 +107,6 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
 
            fetchRates(searchedSymbol, dateOfRate).then((data) => {
              if (data.rates) {
-              const rates = data.rates;
-              const symbols = Object.keys(rates);
-              const quantityOfRows = $(".row-rates").length;
 
               $(".container-rates").removeClass("invisible").addClass("visible");
 
@@ -125,18 +122,24 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
                 });
               }
 
+              const rates = data.rates;
+              const symbols = Object.keys(rates);
+              const quantityOfRows = $(".column-rates").length; 
+              const ratesToRenderPerRow = Math.round(symbols.length / quantityOfRows) + 1 ;
+
                symbols.forEach((symbol, index) => {
                  const rate = rates[symbol];
-                 if (index < Math.floor(symbols.length / quantityOfRows) + 1) {
-                   $(".row-rates").eq(0).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
-                   $(".row-rates").eq(0).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
-                 } else if (index <(Math.floor(symbols.length / quantityOfRows) + 1) * 2) {
-                   $(".row-rates").eq(1).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
-                   $(".row-rates").eq(1).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
-                 } else if (index <(Math.floor(symbols.length / quantityOfRows) + 1) * 3) {
-                   $(".row-rates").eq(2).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
-                   $(".row-rates").eq(2).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
-                 }
+                 
+                  if (index < ratesToRenderPerRow) {
+                    $(".column-rates").eq(0).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
+                    $(".column-rates").eq(0).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                  } else if (index < ratesToRenderPerRow * 2) {
+                    $(".column-rates").eq(1).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
+                    $(".column-rates").eq(1).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                  } else if (index < ratesToRenderPerRow * 3) {
+                    $(".column-rates").eq(2).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
+                    $(".column-rates").eq(2).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                  }
                });
              } else {
                $(".error").text() !== "" ? $(".error").remove() : "";
