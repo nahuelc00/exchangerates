@@ -3,9 +3,23 @@ function renderSymbolsInSelect() {
   fetchSymbols().then((data)=>{
     const symbols = data.symbols;
     symbols.forEach((symbol)=>{
-      $symbols.append(`<option value="${symbol}">${symbol}</option>`)
+      $symbols.append(`<option class="text-white" value="${symbol}">${symbol}</option>`)
     })
   })
+}
+
+function listenClickForChangeBaseSymbolColor($baseSymbol) {
+  $baseSymbol.on("click", function (event) {
+       $baseSymbol.addClass("base-symbols-white");
+       $baseSymbol.off();
+   });
+}
+
+function listenClickForChangeDateTextColor($rateDate) {
+  $rateDate.on("click", function () {   
+    $rateDate.addClass("text-white");
+    $rateDate.off();
+ });
 }
 
 function getBaseSymbol() {
@@ -79,6 +93,13 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
 (function main() {
 
   const $form = $(".form-enter");
+
+  const $baseSymbol = $(".base-symbols");
+  const $rateDate = $(".rate-date");
+
+  listenClickForChangeBaseSymbolColor($baseSymbol);
+  listenClickForChangeDateTextColor($rateDate);
+
    renderSymbolsInSelect();
 
   $form.on("submit", (event) => {
@@ -108,7 +129,7 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
            fetchRates(searchedSymbol, dateOfRate).then((data) => {
              if (data.rates) {
 
-              $(".container-rates").removeClass("invisible").addClass("visible");
+              $(".container-rates").removeClass("visually-hidden");
 
               if ($(".symbol").length !== 0) {
                 $(".symbol").each((index, $symbol) => {
