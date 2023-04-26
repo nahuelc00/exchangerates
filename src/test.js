@@ -1,6 +1,6 @@
 function testValidateSymbol() {
   console.assert(validateSymbol("USD").error === "", "validate symbol failed when to inserted a valid symbol");
-  console.assert(validateSymbol("Seleccione la base").error === "Debe seleccionar un símbolo", "validate symbol failed to validate: 'Seleccione la base'");
+  console.assert(validateSymbol(null).error === "Debe seleccionar un símbolo", "validate symbol failed to validate: 'null'");
 }
 
 function testValidateRateDate() {

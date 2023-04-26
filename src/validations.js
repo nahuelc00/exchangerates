@@ -55,7 +55,7 @@ function validateSymbol(symbolValue) {
     error: "",
   };
 
-  if (symbolValue === "Seleccione la base") {
+  if (symbolValue === null) {
     errors.error = "Debe seleccionar un símbolo";
     return errors;
   }
