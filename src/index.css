@@ -101,13 +101,7 @@ main {
   .container-rates {
     max-width: initial;
     display: flex;
-    justify-content: center;
-    gap: 70px;
-  }
-}
-@media (min-width: 1024px) {
-  .container-rates {
-    gap: 200px;
+    justify-content: space-around;
   }
 }
 
