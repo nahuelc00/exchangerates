@@ -1,9 +1,10 @@
 function renderSymbolsInSelect() {
   const $symbols = $(".form-enter__base-symbols");
   fetchSymbols().then((data)=>{
-    const symbols = data.symbols;
-    symbols.forEach((symbol)=>{
-      $symbols.append(`<option class="text-white" value="${symbol}">${symbol}</option>`)
+    data.forEach((symbolAndDescription)=>{
+      const symbol = symbolAndDescription.symbol;
+      const description = symbolAndDescription.description;
+      $symbols.append(`<option class="text-white" value="${symbol}">${symbol}  (${description})</option>`)
     })
   })
 }
@@ -34,17 +35,26 @@ function getRateDate() {
 
 function fetchSymbols() {
   return fetch("https://api.exchangerate.host/symbols") 
-  .catch(()=> console.error("Error al traer los símbolos"))
+  .catch(()=> console.error("Failed to fetch symbols"))
     .then((response) => response.json())
     .then((data) => {
       const symbols = Object.keys(data.symbols);
-      return { symbols };
+      const symbolsAndDescriptions = [];
+
+      symbols.forEach(symbol => {
+        symbolsAndDescriptions.push({
+          symbol: data.symbols[symbol].code,
+          description: data.symbols[symbol].description
+        });
+      });
+
+      return symbolsAndDescriptions;
     });
 }
 
 function fetchRates(symbol, date) {
    return fetch(`https://api.exchangerate.host/${date}?base=${symbol}`) 
-   .catch(()=> console.error("Error al traer los rates"))
+   .catch(()=> console.error("Failed to fetch rates"))
    .then((response) => response.json())
    .then((data) => {
       if (data.base === symbol) {
@@ -116,19 +126,15 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
     if (validationOfSymbol.error === "" && validationOfDate.error === "") {
 
        fetchSymbols().then((data) => {
-         const symbols = data.symbols;
-         const searchedSymbol = symbols.find((symbol) => symbol === baseSymbol);
-
-         if (searchedSymbol !== undefined) {
+         const searchedSymbol = data.find((symbolAndDescription) => symbolAndDescription.symbol === baseSymbol);
 
            if ($(".form-enter__error").text() !== "") {
              $(".form-enter__error").remove();
              $(".form-enter__container-errors").removeClass("mt-4");
            }
 
-           fetchRates(searchedSymbol, dateOfRate).then((data) => {
+           fetchRates(searchedSymbol.symbol, dateOfRate).then((data) => {
              if (data.rates) {
-
               $(".container-rates").removeClass("visually-hidden");
 
               if ($(".container-rates__symbol").length !== 0) {
@@ -171,7 +177,6 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
                );
              }
            });
-         }
        });
     }     
   });
