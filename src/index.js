@@ -1,5 +1,5 @@
 function renderSymbolsInSelect() {
-  const $symbols = $(".base-symbols");
+  const $symbols = $(".form-enter__base-symbols");
   fetchSymbols().then((data)=>{
     const symbols = data.symbols;
     symbols.forEach((symbol)=>{
@@ -23,12 +23,12 @@ function listenClickForChangeDateTextColor($rateDate) {
 }
 
 function getBaseSymbol() {
-  const baseSymbol = $(".base-symbols").val();
+  const baseSymbol = $(".form-enter__base-symbols").val();
   return baseSymbol;
 }
 
 function getRateDate() {
-  const rateDate = $(".rate-date").val();
+  const rateDate = $(".form-enter__rate-date").val();
   return rateDate;
 }
 
@@ -58,35 +58,35 @@ function fetchRates(symbol, date) {
 function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
 
   if (validationOfSymbol.error) {
-    $(".base-symbols").addClass("is-invalid").removeClass("border").removeClass("border-secondary");
+    $(".form-enter__base-symbols").addClass("is-invalid").removeClass("border").removeClass("border-secondary");
 
-    $(".base-symbols").hasClass("is-valid") ? $(".base-symbols")
+    $(".form-enter__base-symbols").hasClass("is-valid") ? $(".form-enter__base-symbols")
     .removeClass("is-valid") : "";
 
-    $(".symbol-error").text(validationOfSymbol.error);
+    $(".form-enter__symbol-error").text(validationOfSymbol.error);
   } else {
-    $(".base-symbols").addClass("is-valid").removeClass("border").removeClass("border-secondary");;
+    $(".form-enter__base-symbols").addClass("is-valid").removeClass("border").removeClass("border-secondary");;
 
-    $(".base-symbols").hasClass("is-invalid") ? $(".base-symbols")
+    $(".form-enter__base-symbols").hasClass("is-invalid") ? $(".form-enter__base-symbols")
     .removeClass("is-invalid") : "";
 
-    $(".symbol-error").text() !== "" ? $(".symbol-error").text("") : "";
+    $(".form-enter__symbol-error").text() !== "" ? $(".form-enter__symbol-error").text("") : "";
   }
 
   if (validationOfDate.error) {
-    $(".rate-date").addClass("is-invalid").removeClass("border").removeClass("border-secondary");
+    $(".form-enter__rate-date").addClass("is-invalid").removeClass("border").removeClass("border-secondary");
 
-    $(".rate-date").hasClass("is-valid") ? $(".rate-date")
+    $(".form-enter__rate-date").hasClass("is-valid") ? $(".form-enter__rate-date")
     .removeClass("is-valid") : "";
 
-    $(".date-error").text(validationOfDate.error);
+    $(".form-enter__date-error").text(validationOfDate.error);
   } else {
-    $(".rate-date").addClass("is-valid").removeClass("border").removeClass("border-secondary");
+    $(".form-enter__rate-date").addClass("is-valid").removeClass("border").removeClass("border-secondary");
 
-    $(".rate-date").hasClass("is-invalid") ? $(".rate-date")
+    $(".form-enter__rate-date").hasClass("is-invalid") ? $(".form-enter__rate-date")
     .removeClass("is-invalid") : "";
 
-    $(".date-error").text() !== "" ? $(".date-error").text("") : "";
+    $(".form-enter__date-error").text() !== "" ? $(".form-enter__date-error").text("") : "";
   }
 }
 
@@ -94,8 +94,8 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
 
   const $form = $(".form-enter");
 
-  const $baseSymbol = $(".base-symbols");
-  const $rateDate = $(".rate-date");
+  const $baseSymbol = $(".form-enter__base-symbols");
+  const $rateDate = $(".form-enter__rate-date");
 
   listenClickForChangeBaseSymbolColor($baseSymbol);
   listenClickForChangeDateTextColor($rateDate);
@@ -121,9 +121,9 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
 
          if (searchedSymbol !== undefined) {
 
-           if ($(".error").text() !== "") {
-             $(".error").remove();
-             $(".container-errors").removeClass("mt-4");
+           if ($(".form-enter__error").text() !== "") {
+             $(".form-enter__error").remove();
+             $(".form-enter__container-errors").removeClass("mt-4");
            }
 
            fetchRates(searchedSymbol, dateOfRate).then((data) => {
@@ -131,43 +131,43 @@ function renderAndRemoveErrors(validationOfDate,validationOfSymbol) {
 
               $(".container-rates").removeClass("visually-hidden");
 
-              if ($(".symbol").length !== 0) {
-                $(".symbol").each((index, $symbol) => {
+              if ($(".container-rates__symbol").length !== 0) {
+                $(".container-rates__symbol").each((index, $symbol) => {
                   $symbol.remove();
                 });
               }
 
-              if ($(".rate").length !== 0) {
-                $(".rate").each((index, $rate) => {
+              if ($(".container-rates__rate").length !== 0) {
+                $(".container-rates__rate").each((index, $rate) => {
                   $rate.remove();
                 });
               }
 
               const rates = data.rates;
               const symbols = Object.keys(rates);
-              const quantityOfRows = $(".column-rates").length; 
+              const quantityOfRows = $(".container-rates__column-rates").length; 
               const ratesToRenderPerRow = Math.round(symbols.length / quantityOfRows) + 1 ;
 
                symbols.forEach((symbol, index) => {
                  const rate = rates[symbol];
                  
                   if (index < ratesToRenderPerRow) {
-                    $(".column-rates").eq(0).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
-                    $(".column-rates").eq(0).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                    $(".container-rates__column-rates").eq(0).children(".container-rates__container-symbols").append(`<div class="container-rates__symbol text-center mb-2">${symbol}</div>`);
+                    $(".container-rates__column-rates").eq(0).children(".container-rates__container-currency").append(`<div class="container-rates__rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
                   } else if (index < ratesToRenderPerRow * 2) {
-                    $(".column-rates").eq(1).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
-                    $(".column-rates").eq(1).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                    $(".container-rates__column-rates").eq(1).children(".container-rates__container-symbols").append(`<div class="container-rates__symbol text-center mb-2">${symbol}</div>`);
+                    $(".container-rates__column-rates").eq(1).children(".container-rates__container-currency").append(`<div class="container-rates__rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
                   } else if (index < ratesToRenderPerRow * 3) {
-                    $(".column-rates").eq(2).children(".container-symbols").append(`<div class="symbol text-center mb-2">${symbol}</div>`);
-                    $(".column-rates").eq(2).children(".container-currency").append(`<div class="rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
+                    $(".container-rates__column-rates").eq(2).children(".container-rates__container-symbols").append(`<div class="container-rates__symbol text-center mb-2">${symbol}</div>`);
+                    $(".container-rates__column-rates").eq(2).children(".container-rates__container-currency").append(`<div class="container-rates__rate text-center mb-2">${Number(rate).toFixed(2)}</div>`);
                   }
                });
              } else {
                $(".error").text() !== "" ? $(".error").remove() : "";
 
-               $(".container-errors").addClass("mt-4");
-               $(".container-errors").append(
-                 `<p class="error text-center m-0 text-danger">${data}</p>`
+               $(".form-enter__container-errors").addClass("mt-4");
+               $(".form-enter__container-errors").append(
+                 `<p class="form-enter__error text-center m-0 text-danger">${data}</p>`
                );
              }
            });
