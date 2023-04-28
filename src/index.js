@@ -4,14 +4,14 @@ function renderSymbolsInSelect() {
     data.forEach((symbolAndDescription)=>{
       const symbol = symbolAndDescription.symbol;
       const description = symbolAndDescription.description;
-      $symbols.append(`<option class="text-white" value="${symbol}">${symbol}  (${description})</option>`)
+      $symbols.append(`<option class="text-white" value="${symbol}">${symbol} (${description})</option>`)
     })
   })
 }
 
 function listenClickForChangeBaseSymbolColor($baseSymbol) {
   $baseSymbol.on("click", function (event) {
-       $baseSymbol.addClass("base-symbols-white");
+       $baseSymbol.addClass("base-symbol-white");
        $baseSymbol.off();
    });
 }
