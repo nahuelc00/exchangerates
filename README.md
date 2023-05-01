@@ -4,10 +4,10 @@
 ### Installation:
 - download or clone repo
 - run: ***npm install***
-- for run tests :
-				- Install http-server
-				- run:  ***npm run start***
-				- run:  ***npm run cypress:open*** 
+- for run tests:
+				Install http-server
+				run:  ***npm run start***
+				run:  ***npm run cypress:open*** 
 
 
 ### Demo: https://nahuelc00.github.io/exchangerates/
