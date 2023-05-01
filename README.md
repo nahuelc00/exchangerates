@@ -5,7 +5,7 @@
 - download or clone repo
 - run: ***npm install***
 
-#### for run tests:
+#### to run tests:
 - Install http-server
 
 - run: ***npm run start***
