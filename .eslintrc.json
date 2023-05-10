@@ -10,5 +10,6 @@
         "ecmaVersion": "latest"
     },
     "rules": {
+        "import/prefer-default-export": "off"
     }
 }
