@@ -192,7 +192,8 @@ function listenSubmitForm() {
   });
 }
 
-listenClickForChangeBaseSymbolColor();
-listenClickForChangeDateTextColor();
-
-export { listenSubmitForm, renderSymbolsInSelect };
+export {
+  listenSubmitForm, renderSymbolsInSelect,
+  listenClickForChangeBaseSymbolColor,
+  listenClickForChangeDateTextColor,
+};
