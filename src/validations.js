@@ -62,3 +62,5 @@ function validateSymbol(symbolValue) { // eslint-disable-line no-unused-vars
 
   return errors;
 }
+
+export { validateRateDate, validateSymbol, getActualDate };

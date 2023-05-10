@@ -1,5 +1,5 @@
 /* eslint no-console: ["error", { allow: ["assert"] }] */
-/* global validateRateDate validateSymbol getActualDate */
+import { validateSymbol, validateRateDate, getActualDate } from './validations';
 
 function testValidateSymbol() {
   console.assert(validateSymbol('USD').error === '', 'validate symbol failed when to inserted a valid symbol');
