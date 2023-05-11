@@ -30,20 +30,20 @@ function validateRateDate(dateValue) { // eslint-disable-line no-unused-vars
   };
 
   if (dateValue === '') {
-    errors.error = 'La fecha no puede estar vacía';
+    errors.error = 'Date empty';
     return errors;
   }
   const actualDate = getActualDate();
   const dateOrganized = organizeDate(dateValue);
 
   if (dateOrganized.year > actualDate.year) {
-    errors.error = 'El año ingresado es mayor al actual';
+    errors.error = 'Entered year is greater than the actual';
     return errors;
   } if (dateOrganized.year === actualDate.year && dateOrganized.month > actualDate.month) {
-    errors.error = 'El mes ingresado es mayor al actual';
+    errors.error = 'Entered month is greater than the actual';
     return errors;
   } if (dateOrganized.month === actualDate.month && dateOrganized.day > actualDate.day) {
-    errors.error = 'El día ingresado es mayor al actual';
+    errors.error = 'Entered day is greater than the actual';
     return errors;
   }
 
@@ -56,7 +56,7 @@ function validateSymbol(symbolValue) { // eslint-disable-line no-unused-vars
   };
 
   if (symbolValue === null) {
-    errors.error = 'Debe seleccionar un símbolo';
+    errors.error = 'Select a symbol';
     return errors;
   }
 
