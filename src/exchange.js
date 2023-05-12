@@ -35,7 +35,7 @@ async function getRates(symbol, date) {
     }));
     return { rates: responseInJson.rates };
   }
-  return { error: 'La fecha ingresada no es válida' };
+  return { error: 'Date entered is not valid' };
 }
 
 async function getCurrencyConvertion(base, baseToConvert, amount) {
