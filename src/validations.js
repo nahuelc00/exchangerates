@@ -63,4 +63,19 @@ function validateSymbol(symbolValue) { // eslint-disable-line no-unused-vars
   return errors;
 }
 
-export { validateRateDate, validateSymbol, getActualDate };
+function validateAmount(amount) {
+  const errors = {
+    error: '',
+  };
+
+  if (amount === 0) {
+    errors.error = 'Select amount';
+    return errors;
+  }
+  return errors;
+}
+
+export {
+  validateRateDate, validateSymbol, getActualDate,
+  validateAmount,
+};

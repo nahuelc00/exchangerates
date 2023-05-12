@@ -75,17 +75,43 @@ main {
 
 /* Form */
 
+@media (min-width: 1024px) {
+  .container-forms {
+    display: flex;
+  }
+}
+
 .form-enter {
   max-width: 500px;
 }
 
-.form-enter__base-symbols {
-  background-color: #232323;
-  color: #454545;
+.form-convert {
+  margin: 0 auto;
+  max-width: 300px;
+  height: 300px;
 }
 
-.base-symbol-white {
+.form-convert__container-from-to {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-convert__container-select {
+  width: 100px;
+}
+
+.form-convert__container-result-convert {
+  min-height: 35px;
+}
+
+.form-enter__base-symbols,
+.form-convert__base-symbols {
+  background-color: #232323;
   color: white;
+}
+
+.amount-converted-color {
+  color: #39ff14;
 }
 
 .form-enter__button-enter {

@@ -1,10 +1,10 @@
 /* global  $ */
 /* eslint-disable import/extensions */
 
-import { getSymbols, getRates } from './exchange.js';
-import { validateRateDate, validateSymbol } from './validations.js';
+import { getSymbols, getRates } from '../exchange.js';
+import { validateRateDate, validateSymbol } from '../validations.js';
 
-async function renderSymbolsInSelect() {
+async function getAndRenderSymbolsInSelect() {
   const $symbols = $('.form-enter__base-symbols');
   const symbols = await getSymbols();
 
@@ -12,16 +12,8 @@ async function renderSymbolsInSelect() {
     const { symbol } = symbolAndDescription;
     const { description } = symbolAndDescription;
     $symbols.append(
-      `<option class='text-white' value='${symbol}'>${symbol} (${description})</option>`,
+      `<option value='${symbol}'>${symbol} (${description})</option>`,
     );
-  });
-}
-
-function listenClickForChangeBaseSymbolColor() {
-  const $baseSymbol = $('.form-enter__base-symbols');
-  $baseSymbol.on('click', () => {
-    $baseSymbol.addClass('base-symbol-white');
-    $baseSymbol.off();
   });
 }
 
@@ -141,6 +133,12 @@ function getRateDate() {
   return rateDate;
 }
 
+function scrollingToContainerRates() {
+  $([document.documentElement, document.body]).animate({
+    scrollTop: $('.container-rates').offset().top,
+  });
+}
+
 async function getAndRenderRates(baseSymbol, dateOfRate) {
   const dataRates = await getRates(baseSymbol, dateOfRate);
 
@@ -166,6 +164,7 @@ async function getAndRenderRates(baseSymbol, dateOfRate) {
         renderColumnsOfRatesAndSymbols(symbol, rate, 2);
       }
     });
+    scrollingToContainerRates();
   } else {
     renderErrorOfDateInvalid(dataRates.error);
   }
@@ -193,7 +192,7 @@ function listenSubmitForm() {
 }
 
 export {
-  listenSubmitForm, renderSymbolsInSelect,
-  listenClickForChangeBaseSymbolColor,
+  getAndRenderSymbolsInSelect,
+  listenSubmitForm,
   listenClickForChangeDateTextColor,
 };

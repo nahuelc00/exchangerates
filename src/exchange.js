@@ -38,4 +38,12 @@ async function getRates(symbol, date) {
   return { error: 'La fecha ingresada no es válida' };
 }
 
-export { getSymbols, getRates };
+async function getCurrencyConvertion(base, baseToConvert, amount) {
+  const response = await fetch(`${BASE_URL}/convert?from=${base}&to=${baseToConvert}&amount=${amount}`);
+  const responseInJson = await response.json();
+  return {
+    result: responseInJson.result,
+  };
+}
+
+export { getSymbols, getRates, getCurrencyConvertion };
