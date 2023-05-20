@@ -1,8 +1,8 @@
 /* global  $ */
 /* eslint-disable import/extensions */
 
-import { getSymbols, getRates } from '../exchange.js';
-import { validateRateDate, validateSymbol } from '../validations.js';
+import { getRates, getSymbols } from '../api/exchange.js';
+import { validateRateDate, validateSymbol } from '../validations/validations.js';
 
 async function getAndRenderSymbolsInSelect() {
   const $symbols = $('.form-enter__base-symbols');

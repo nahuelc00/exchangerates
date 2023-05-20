@@ -1,8 +1,8 @@
 /* global  $ */
 /* eslint-disable import/extensions */
 
-import { validateSymbol, validateAmount } from '../validations.js';
-import { getCurrencyConvertion, getSymbols } from '../exchange.js';
+import { validateSymbol, validateAmount } from '../validations/validations.js';
+import { getCurrencyConvertion, getSymbols } from '../api/exchange.js';
 
 async function getAndRenderSymbolsInSelect() {
   const $symbolsToConvert = $('.form-convert__base-symbols');

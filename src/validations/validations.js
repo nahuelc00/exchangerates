@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { getActualDate, organizeDate } from './utilities.js';
+import { getActualDate, organizeDate } from '../utilities/utilities.js';
 
 function validateRateDate(dateValue) { // eslint-disable-line no-unused-vars
   const errors = {
