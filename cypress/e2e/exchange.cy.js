@@ -20,16 +20,14 @@ context('Exchange', () => {
 
       cy.get('.form-convert__input-amount').type('1000');
 
-      cy.intercept(`${BASE_URL_API}convert?from=USD&to=ARS&amount=1000`)
+      cy.intercept(`${BASE_URL_API}convert?from=USD&to=ARS&amount=1000`, { fixture: 'usd-to-ars.json' })
         .as('getConvertion');
 
       cy.get('.form-convert > button').click();
 
       cy.wait('@getConvertion').then(({ response }) => {
-        const amountConverted = response.body.result.toFixed(2);
         expect(response.statusCode).to.eq(200);
-        cy.get('.form-convert__container-result-convert > p ')
-          .should('have.text', `1000 USD ---> ${amountConverted} ARS`);
+        cy.get('.amount-converted-color').should('have.text', 232229.14);
       });
     });
   });
@@ -41,7 +39,8 @@ context('Exchange', () => {
       cy.get('.form-enter__rate-date').should('have.class', 'is-invalid');
       cy.get('.form-enter__rate-date').type('2012-03-22');
 
-      cy.intercept(`${BASE_URL_API}2012-03-22?base=USD`).as('getRates');
+      cy.intercept(`${BASE_URL_API}2012-03-22?base=USD`, { fixture: '2012-03-22-USD.json' })
+        .as('getRates');
 
       cy.get('.form-enter__button-enter').click();
 
