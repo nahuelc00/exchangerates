@@ -134,7 +134,7 @@ function getRateDate() {
 }
 
 function scrollingToContainerRates() {
-  $([document.documentElement, document.body]).animate({
+  $(document.documentElement).animate({
     scrollTop: $('.container-rates').offset().top,
   });
 }
