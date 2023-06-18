@@ -35,7 +35,7 @@ function renderConvertResult(amount, baseSymbolFrom, baseSymbolTo, amountConvert
   const $containerResultConvert = $('.form-convert__container-result-convert');
   $containerResultConvert.empty();
   $containerResultConvert.append(
-    `<p class="text-white text-center fw-medium m-0">${amount} ${baseSymbolFrom} ---> <span class="amount-converted-color">${amountConverted.toFixed(2)}</span> ${baseSymbolTo}</p>
+    `<p class="text-white text-center fw-medium m-0">${amount} ${baseSymbolFrom} ---> <span class="amount-converted-color">${amountConverted.toFixed()}</span> ${baseSymbolTo}</p>
 `,
   );
 }
