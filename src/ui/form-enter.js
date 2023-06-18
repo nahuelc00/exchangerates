@@ -1,16 +1,24 @@
+/* eslint-disable max-classes-per-file */
 /* global  $ */
 /* eslint-disable import/extensions */
 
 import { getRates, getSymbols } from '../api/exchange.js';
 import { validateRateDate, validateSymbol } from '../validations/validations.js';
+import { Symbols } from '../Symbols.js';
+
+class Rates {
+  constructor(dataRates) {
+    this.rates = Object.values(dataRates.rates);
+    this.symbols = Object.keys(dataRates.rates);
+  }
+}
 
 async function getAndRenderSymbolsInSelect() {
   const $symbols = $('.form-enter__base-symbols');
-  const symbols = await getSymbols();
+  const dataSymbols = new Symbols(await getSymbols());
 
-  symbols.forEach((symbolAndDescription) => {
-    const { symbol } = symbolAndDescription;
-    const { description } = symbolAndDescription;
+  dataSymbols.symbols.forEach((symbol, index) => {
+    const description = dataSymbols.descriptions[index];
     $symbols.append(
       `<option value='${symbol}'>${symbol} (${description})</option>`,
     );
@@ -148,13 +156,13 @@ async function getAndRenderRates(baseSymbol, dateOfRate) {
     removeSymbols();
     removeRates();
 
-    const { rates } = dataRates;
-    const symbols = Object.keys(rates);
+    const ratesAndSymbols = new Rates(dataRates);
+    const { symbols } = ratesAndSymbols;
     const quantityOfRows = $('.container-rates__column-rates').length;
     const ratesToRenderPerRow = Math.round(symbols.length / quantityOfRows) + 1;
 
     symbols.forEach((symbol, index) => {
-      const rate = rates[symbol];
+      const rate = ratesAndSymbols.rates[index];
 
       if (index < ratesToRenderPerRow) {
         renderColumnsOfRatesAndSymbols(symbol, rate, 0);

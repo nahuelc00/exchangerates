@@ -3,13 +3,13 @@
 
 import { validateSymbol, validateAmount } from '../validations/validations.js';
 import { getCurrencyConvertion, getSymbols } from '../api/exchange.js';
+import { Symbols } from '../Symbols.js';
 
 async function getAndRenderSymbolsInSelect() {
   const $symbolsToConvert = $('.form-convert__base-symbols');
-  const symbols = await getSymbols();
+  const dataSymbols = new Symbols(await getSymbols());
 
-  symbols.forEach((dataSymbol) => {
-    const { symbol } = dataSymbol;
+  dataSymbols.symbols.forEach((symbol) => {
     $symbolsToConvert.append(
       `<option value='${symbol}'>${symbol}</option>`,
     );
