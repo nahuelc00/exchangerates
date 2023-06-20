@@ -3,11 +3,11 @@
 
 import { validateSymbol, validateAmount } from '../validations/validations.js';
 import { getCurrencyConvertion, getSymbols } from '../api/exchange.js';
-import { Symbols } from '../Symbols.js';
+import { mapSymbols } from '../mappers/mapSymbols.js';
 
 async function getAndRenderSymbolsInSelect() {
   const $symbolsToConvert = $('.form-convert__base-symbols');
-  const dataSymbols = new Symbols(await getSymbols());
+  const dataSymbols = mapSymbols(await getSymbols());
 
   dataSymbols.symbols.forEach((symbol) => {
     $symbolsToConvert.append(

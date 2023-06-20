@@ -4,18 +4,13 @@
 
 import { getRates, getSymbols } from '../api/exchange.js';
 import { validateRateDate, validateSymbol } from '../validations/validations.js';
-import { Symbols } from '../Symbols.js';
 
-class Rates {
-  constructor(dataRates) {
-    this.rates = Object.values(dataRates.rates);
-    this.symbols = Object.keys(dataRates.rates);
-  }
-}
+import { mapRates } from '../mappers/mapRates.js';
+import { mapSymbols } from '../mappers/mapSymbols.js';
 
 async function getAndRenderSymbolsInSelect() {
   const $symbols = $('.form-enter__base-symbols');
-  const dataSymbols = new Symbols(await getSymbols());
+  const dataSymbols = mapSymbols(await getSymbols());
 
   dataSymbols.symbols.forEach((symbol, index) => {
     const description = dataSymbols.descriptions[index];
@@ -156,7 +151,7 @@ async function getAndRenderRates(baseSymbol, dateOfRate) {
     removeSymbols();
     removeRates();
 
-    const ratesAndSymbols = new Rates(dataRates);
+    const ratesAndSymbols = mapRates(dataRates);
     const { symbols } = ratesAndSymbols;
     const quantityOfRows = $('.container-rates__column-rates').length;
     const ratesToRenderPerRow = Math.round(symbols.length / quantityOfRows) + 1;
