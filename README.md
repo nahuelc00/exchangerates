@@ -9,15 +9,15 @@
 - run: ***npm install***
 
 #### To run app in local in exchangerates folder run:
-- run: ***VITE_EXCHANGE_API_KEY=YOUR_API_KEY_CREATED npm run dev***
+***VITE_EXCHANGE_API_KEY=YOUR_API_KEY_CREATED npm run dev***
 
 #### To run tests Cypress in exchangerates folder run:
-- run: ***npm run dev***
+***npm run dev***
 
 - In other tab, run: ***CYPRESS_EXCHANGE_API_KEY=YOUR_API_KEY_CREATED npm run cypress:open***
 
 #### To run tests Jest in exchangerates folder run:
-- run: ***npm run test***
+***npm run test***
 
 
 ### Demo: https://exchangerates-beryl.vercel.app/
