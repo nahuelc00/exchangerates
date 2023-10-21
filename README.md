@@ -1,18 +1,18 @@
 # Exchange 
 **Exchange for test different currencies. Made with Html, Css and JavaScript. Using jQuery, Bootstrap for styles and Cypress and Jest for testing.**
 
+**First, register in: ***https://apilayer.com/marketplace/exchangerates_data-api*** and create api key.**
+
 ### Installation:
 - download or clone repo
 - run: ***npm install***
 
-#### to run tests Cypress:
-- Install http-server
+#### To run tests Cypress:
+- run: ***npm run dev***
 
-- run: ***npm run start***
+- In other tab, run: ***CYPRESS_EXCHANGE_API_KEY=YOUR_API_KEY_CREATED npm run cypress:open***
 
-- run: ***npm run cypress:open***
-
-#### to run tests Jest:
+#### To run tests Jest:
 - run: ***npm run test***
 
 

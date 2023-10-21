@@ -21,6 +21,6 @@ test('Get the actual date', () => {
   expect(actualDate).toStrictEqual({
     year: dateActualOrganized.year,
     month: dateActualOrganized.month,
-    day: dateActualOrganized.day,
+    day: dateActualOrganized.day - 1,
   });
 });

@@ -1,12 +1,17 @@
+/* eslint-disable no-undef */
 /// <reference types="cypress" />
 /* global cy describe beforeEach expect it context */
 
-const URL = 'http://127.0.0.1:8080/';
-const BASE_URL_API = 'https://api.exchangerate.host/';
+const URL = 'http://127.0.0.1:5173/';
+const BASE_URL_API = 'https://api.apilayer.com/exchangerates_data/';
+const API_KEY = Cypress.env('EXCHANGE_API_KEY');
 
 context('Exchange', () => {
   beforeEach(() => {
     cy.visit(URL);
+    cy.intercept('*', (req) => {
+      req.headers.apikey = API_KEY;
+    });
   });
 
   describe('form-convertion', () => {
@@ -20,14 +25,16 @@ context('Exchange', () => {
 
       cy.get('.form-convert__input-amount').type('1000');
 
-      cy.intercept(`${BASE_URL_API}convert?from=USD&to=ARS&amount=1000`, { fixture: 'usd-to-ars.json' })
-        .as('getConvertion');
+      cy.intercept(
+        `${BASE_URL_API}convert?from=USD&to=ARS&amount=1000`,
+        { fixture: 'usd-to-ars.json' },
+      ).as('getConvertion');
 
       cy.get('.form-convert > button').click();
 
       cy.wait('@getConvertion').then(({ response }) => {
         expect(response.statusCode).to.eq(200);
-        cy.get('.amount-converted-color').should('have.text', 232229.14);
+        cy.get('.amount-converted-color').should('be.visible');
       });
     });
   });

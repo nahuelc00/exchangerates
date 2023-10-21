@@ -1,19 +1,25 @@
 /* eslint no-console: ["error", { allow: ["error"] }] */
 
-const BASE_URL = 'https://api.exchangerate.host';
+const BASE_URL = 'https://api.apilayer.com/exchangerates_data';
+const API_KEY = import.meta.env.VITE_EXCHANGE_API_KEY;
+const HEADER_OPTIONS = {
+  headers: {
+    apikey: API_KEY,
+  },
+};
 
 async function getSymbols() {
-  const response = await fetch(`${BASE_URL}/symbols`);
+  const response = await fetch(`${BASE_URL}/symbols`, HEADER_OPTIONS);
   const jsonData = await response.json();
   const symbols = Object.keys(jsonData.symbols);
   const symbolsAndDescription = [];
 
   symbols.forEach((symbol) => {
-    const descriptionAndSymbol = jsonData.symbols[symbol];
+    const description = jsonData.symbols[symbol];
     symbolsAndDescription.push(
       {
-        symbol: descriptionAndSymbol.code,
-        description: descriptionAndSymbol.description,
+        symbol,
+        description,
       },
     );
   });
@@ -22,7 +28,7 @@ async function getSymbols() {
 }
 
 async function getRates(symbol, date) {
-  const response = await fetch(`${BASE_URL}/${date}?base=${symbol}`);
+  const response = await fetch(`${BASE_URL}/${date}?base=${symbol}`, HEADER_OPTIONS);
   const responseInJson = await response.json();
   if (responseInJson.base === symbol) {
     const keyCache = `${symbol}/${date}`;
@@ -39,7 +45,10 @@ async function getRates(symbol, date) {
 }
 
 async function getCurrencyConvertion(base, baseToConvert, amount) {
-  const response = await fetch(`${BASE_URL}/convert?from=${base}&to=${baseToConvert}&amount=${amount}`);
+  const response = await fetch(
+    `${BASE_URL}/convert?from=${base}&to=${baseToConvert}&amount=${amount}`,
+    HEADER_OPTIONS,
+  );
   const responseInJson = await response.json();
   return {
     result: responseInJson.result,
