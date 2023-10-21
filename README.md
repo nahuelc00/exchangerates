@@ -7,6 +7,9 @@
 - download or clone repo
 - run: ***npm install***
 
+#### To run app in local:
+- run: ***VITE_EXCHANGE_API_KEY=YOUR_API_KEY_CREATED npm run dev***
+
 #### To run tests Cypress:
 - run: ***npm run dev***
 
@@ -16,5 +19,5 @@
 - run: ***npm run test***
 
 
-### Demo: https://nahuelc00.github.io/exchangerates/
+### Demo: https://exchangerates-beryl.vercel.app/
 
