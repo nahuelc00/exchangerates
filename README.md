@@ -5,17 +5,18 @@
 
 ### Installation:
 - download or clone repo
+- run: ***cd ./exchangerates***
 - run: ***npm install***
 
-#### To run app in local:
+#### To run app in local in exchangerates folder run:
 - run: ***VITE_EXCHANGE_API_KEY=YOUR_API_KEY_CREATED npm run dev***
 
-#### To run tests Cypress:
+#### To run tests Cypress in exchangerates folder run:
 - run: ***npm run dev***
 
 - In other tab, run: ***CYPRESS_EXCHANGE_API_KEY=YOUR_API_KEY_CREATED npm run cypress:open***
 
-#### To run tests Jest:
+#### To run tests Jest in exchangerates folder run:
 - run: ***npm run test***
 
 
