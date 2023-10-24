@@ -84,6 +84,11 @@ main {
 .form-enter {
   max-width: 500px;
 }
+@media (min-width: 1024px) {
+  .form-enter {
+    width: 500px;
+  }
+}
 
 .form-convert {
   margin: 0 auto;
